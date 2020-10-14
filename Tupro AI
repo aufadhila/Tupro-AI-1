@@ -1,0 +1,41 @@
+import random
+import math
+
+m = random.uniform(-10,10)
+n = random.uniform(-10,10)
+Tawal = 1000000
+Takhir = 0.000000000001
+alpha = 0.999
+	
+currentstate = (4-(2.1*(m**2))+((m**4)/3)*(m**2))+(m*n)+((-4 +4*(n**2))*(n**2))
+
+print('HASIL AWAL')
+print('Current State : ' , currentstate)
+print('A : ' , m)
+print('B : ' , n)
+
+while (Tawal > Takhir) :
+	a = random.uniform(-10,10)
+	b = random.uniform(-10,10)
+	newstate = (4-(2.1*(a**2))+((a**4)/3)*(a**2))+(a*b)+((-4 +4*(b**2))*(b**2))
+	DeltaE = currentstate - newstate
+
+	if (currentstate > newstate) :
+		currentstate = newstate
+		m = a
+		n = b
+	else :
+		DeltaE = newstate - currentstate
+		p = math.exp(-DeltaE / Tawal)
+		r = random.uniform(0,1)
+
+		if (p > r) :
+			currentstate = newstate
+			m = a
+			n = b
+	Tawal = Tawal * alpha
+
+print('HASIL AKHIR')
+print('Current State : ' , currentstate)
+print('A : ' , m)
+print('B : ' , n)
